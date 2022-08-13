@@ -13,6 +13,7 @@ export default function Documentation() {
     return (
         <>
             <ul className="documentation--info-section">
+                <li><h4>Syntax:</h4></li>
                 <li><p className="documentation--info">[operation] [var_0] [var_1?]</p></li>
                 <li><p className="documentation--info">The result of any operation is always applied to `[var_0]`.</p></li>
                 <li><p className="documentation--note">- NOTE: - Each line may only have one operation.</p></li>

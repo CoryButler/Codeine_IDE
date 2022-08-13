@@ -6,20 +6,38 @@
     --lightgrey: #cccccc;
     --verylightgrey: #eeeeee;
     --red: #c71b1e;
+    --main-content-max-width: 1221px;
+    --dark-slate: #444455;
+}
+
+.container.dark {
+    --red: green;
 }
 
 * {
     margin: 0;
     box-sizing: border-box;
+    transition: 0.175s;
 }
 
 nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
     display: flex;
     align-items: center;
-    gap: 6px;
+    justify-content: space-between;
     padding: var(--padding);
     background: white;
     box-shadow: 0 0 16px var(--grey);
+}
+
+nav.dark {
+    color: var(--verylightgrey);
+    background: var(--dark-slate);
+    box-shadow: 0 0 16px var(--grey);
+    box-shadow: 0 0 16px black;
 }
 
 textarea {
@@ -34,9 +52,18 @@ textarea:focus {
 }
 
 #root {
+    background: linear-gradient(white, var(--lightgrey));
+    overflow-x: hidden;
+}
+
+#root.dark {
+    background: linear-gradient(var(--dark-slate), black);;
+}
+
+.branding {
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 6px;
 }
 
 .container {
@@ -44,13 +71,14 @@ textarea:focus {
 }
 
 .main-content {
+    margin: 52px auto;
     padding: 32px;
+    max-width: var(--main-content-max-width);
 }
 
 .ide {
     display: flex;
     gap: 32px;
-    max-width: 1186px;
     margin: auto;
 }
 
@@ -68,7 +96,7 @@ textarea:focus {
     align-items: center;
     gap: 6px;
     padding: var(--padding);
-    box-shadow: 0 0 16px var(--grey);
+    box-shadow: 0 0 8px var(--grey);
 }
 
 .card--body {
@@ -94,9 +122,17 @@ textarea:focus {
     align-items: center;
     gap: 6px;
     padding: 4px 8px;
+    background: white;
     border-radius: 4px;
     border: 1px solid var(--lightgrey);
     transition: 0.175s;
+    box-shadow: none;
+}
+
+.action-button.dark {
+    color: var(--verylightgrey);
+    background: var(--dark-slate);
+    border: 1px solid black;
     box-shadow: none;
 }
 
@@ -104,6 +140,11 @@ textarea:focus {
     background: var(--verylightgrey);
     box-shadow: 0 0 6px var(--lightgrey);
     cursor: pointer;
+}
+
+.action-button.dark:hover {
+    background: black;
+    box-shadow: 0 0 6px black;
 }
 
 ul {

@@ -34,29 +34,27 @@ export default function Ide() {
     }
 
     function upload() {
-        console.log("upload code");
         const element = document.createElement("input");
         element.setAttribute("type", "file");
+        element.setAttribute("accept", ".rx");
         element.style.display = "none";
         document.body.appendChild(element);
-        element.onclick = () => {
-            loadFile(this.fileList[0]); //TODO: fix upload
+        element.onchange = (evt) => {
+            if (evt.target.files.length > 0) loadFile(evt.target.files[0]);
         };
         element.click();
         document.body.removeChild(element);
     }
 
-    function loadFile(filepath) {
-        setFilename(filepath.substr(filepath.lastIndexOf("/") + 1));
-
-        fetch(filepath)
-        .then(response => response.text())
-        .then(text => { setInput(text); });
-    }    
-
-    React.useEffect(() => {
-        loadFile(sampleCodeFile);
-    }, []);
+    function loadFile(file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+            setFilename(file.name.substr(file.name.lastIndexOf("/") + 1));
+            setInput(reader.result);
+        };
+        reader.onerror = () => { setOutput(`ERROR: "${file.name}" did not load.`); };
+        reader.readAsText(file);
+    }
 
     const actionButtons = [
         <ActionButton key="0" title={<>Upload {icons.filter(i => i.id === "upload")[0].svg}</>} handleOnClick={upload} type="upload" />,
@@ -64,8 +62,37 @@ export default function Ide() {
         <ActionButton key="2" title={<>Run {icons.filter(i => i.id === "run")[0].svg}</>} handleOnClick={run} />
     ];
 
-    let body_input = <textarea placeholder="add codeine code here" onChange={handleOnChange} value={input} autoFocus />;
+    let body_input = <textarea
+        placeholder="add codeine code here"
+        onChange={handleOnChange}
+        onDragOver={handleOnDragOver}
+        onDrop={handleOnDrop}
+        value={input}
+        spellCheck="false"
+        autoFocus />;
     let body_output = <p id="log">{output}</p>;
+
+
+    function handleOnDragOver(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+        evt.dataTransfer.dropEffect = "copy";
+    }
+
+    function handleOnDrop(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+        if (evt.dataTransfer.files.length > 0) loadFile(evt.dataTransfer.files[0]);
+    }
+
+    React.useEffect(() => {
+        fetch(sampleCodeFile)
+        .then(response => response.text())
+        .then(text => {
+            setFilename(sampleCodeFile.substr(sampleCodeFile.lastIndexOf("/") + 1));
+            setInput(text);
+        });
+    }, []);
 
     return (
         <div className="ide">
