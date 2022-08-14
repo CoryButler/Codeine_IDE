@@ -14,6 +14,7 @@
     --documentation-note-weight: normal;
     --ide-direction: horizontal;
     --transition-speed: 0.5s;
+    --main-content-offset-y: 52px;
 }
 
 .container.dark {
@@ -28,9 +29,9 @@
 * {
     margin: 0;
     box-sizing: border-box;
-    transition: var(--transition-speed);
     font-family: "Consolas", "Courier Prime", "Courier New", Courier, monospace;
     color: var(--main-txt);
+    transition: all var(--transition-speed), font-size 0s;
 }
 
 body {
@@ -78,7 +79,7 @@ textarea:focus {
 }
 
 .main-content {
-    margin: 52px auto 0 auto;
+    margin: var(--main-content-offset-y) auto 0 auto;
     padding: 32px 32px 0 32px;
     max-width: var(--main-content-max-width);
 }
@@ -202,19 +203,10 @@ ul > li:not(:last-child) {
     }
 }
 
-@media (orientation: landscape) {
-    * {
-        transition-property: all var(--transition-speed), font-size 0s;
-    }
-}
-
 @media (orientation: portrait) {
     :root {
         --ide-direction: column;
-    }
-
-    * {
-        transition-property: all var(--transition-speed), font-size 0s;
+        --main-content-offset-y: 84px;
     }
 
     body {
