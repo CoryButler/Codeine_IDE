@@ -13,6 +13,7 @@
     --main-content-max-width: 1221px;
     --documentation-note-weight: normal;
     --ide-direction: horizontal;
+    --transition-speed: 0.5s;
 }
 
 .container.dark {
@@ -27,7 +28,7 @@
 * {
     margin: 0;
     box-sizing: border-box;
-    transition: 0.5s;
+    transition: var(--transition-speed);
     font-family: "Consolas", "Courier Prime", "Courier New", Courier, monospace;
     color: var(--main-txt);
 }
@@ -201,9 +202,19 @@ ul > li:not(:last-child) {
     }
 }
 
+@media (orientation: landscape) {
+    * {
+        transition-property: all var(--transition-speed), font-size 0s;
+    }
+}
+
 @media (orientation: portrait) {
     :root {
         --ide-direction: column;
+    }
+
+    * {
+        transition-property: all var(--transition-speed), font-size 0s;
     }
 
     body {
