@@ -33,6 +33,7 @@
 }
 
 body {
+    font-size: 1em;
     transition: 0s !important;
 }
 
@@ -56,6 +57,7 @@ textarea {
     background: var(--main-bg);
     border: none;
     resize: none;
+    font-size: 1em;
 }
 
 textarea:focus {
@@ -202,5 +204,9 @@ ul > li:not(:last-child) {
 @media (orientation: portrait) {
     :root {
         --ide-direction: column;
+    }
+
+    body {
+        font-size: 2em;
     }
 }
