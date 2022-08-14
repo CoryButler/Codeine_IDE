@@ -7,7 +7,7 @@ import SampleCodeFiles from "../data/sampleCodeFiles";
 
 export default function Ide() {
     const maxFilenameLength = 14;
-    const sampleCodeFile = "../src/data/" + (SampleCodeFiles[Math.floor(Math.random() * SampleCodeFiles.length)]);
+    const sampleCodeFile = "./data/" + (SampleCodeFiles[Math.floor(Math.random() * SampleCodeFiles.length)]);
 
     const [filename, setFilename] = React.useState("");
     const [input, setInput] = React.useState("");
@@ -60,7 +60,6 @@ export default function Ide() {
             }
             setFilename(newFilename);
             setInput(reader.result);
-            console.log(newFilename);
         };
         reader.onerror = () => { setOutput(`ERROR: "${file.name}" did not load.`); };
         reader.readAsText(file);
@@ -106,7 +105,6 @@ export default function Ide() {
             }
             setFilename(newFilename);
             setInput(text);
-            console.log(newFilename);
         });
     }, []);
 
