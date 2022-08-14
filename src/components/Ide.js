@@ -6,6 +6,7 @@ import Codeine from "../data/Codeine";
 import SampleCodeFiles from "../data/sampleCodeFiles";
 
 export default function Ide() {
+    const maxFilenameLength = 14;
     const sampleCodeFile = "../src/data/" + (SampleCodeFiles[Math.floor(Math.random() * SampleCodeFiles.length)]);
 
     const [filename, setFilename] = React.useState("");
@@ -15,6 +16,9 @@ export default function Ide() {
     function handleOnChange(evt) {
         setInput(evt.target.value);
         setFilename("custom.rx");
+        if (!window.onbeforeunload) {
+            window.onbeforeunload = () => { return ""; };
+        }
     }
 
     function run() {
@@ -26,7 +30,7 @@ export default function Ide() {
         const url = URL.createObjectURL(blob);
         const element = document.createElement("a");
         element.setAttribute("href", url);
-        element.setAttribute("download", filename);
+        element.setAttribute("download", filename.replace("…", ""));
         element.style.display = "none";
         document.body.appendChild(element);
         element.click();
@@ -49,8 +53,14 @@ export default function Ide() {
     function loadFile(file) {
         const reader = new FileReader();
         reader.onload = () => {
-            setFilename(file.name.substr(file.name.lastIndexOf("/") + 1));
+            let newFilename = file.name.lastIndexOf("/") + 1;
+            if (newFilename.length > maxFilenameLength) {
+                const startIndex = newFilename.length - (maxFilenameLength - 1);
+                newFilename = "…" + newFilename.substr(startIndex);
+            }
+            setFilename(newFilename);
             setInput(reader.result);
+            console.log(newFilename);
         };
         reader.onerror = () => { setOutput(`ERROR: "${file.name}" did not load.`); };
         reader.readAsText(file);
@@ -89,8 +99,14 @@ export default function Ide() {
         fetch(sampleCodeFile)
         .then(response => response.text())
         .then(text => {
-            setFilename(sampleCodeFile.substr(sampleCodeFile.lastIndexOf("/") + 1));
+            let newFilename = sampleCodeFile.substr(sampleCodeFile.lastIndexOf("/") + 1);
+            if (newFilename.length > maxFilenameLength) {
+                const startIndex = newFilename.length - (maxFilenameLength - 1);
+                newFilename = "…" + newFilename.substr(startIndex);
+            }
+            setFilename(newFilename);
             setInput(text);
+            console.log(newFilename);
         });
     }, []);
 

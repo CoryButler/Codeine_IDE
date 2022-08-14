@@ -3,7 +3,7 @@ import icons from "../data/icons";
 
 export default function Navbar(props) {
     return (
-        <nav className={props.isDarkMode ? "dark" : ""}>
+        <nav>
             <div className="branding">
                 <h1>Codeine</h1>
                 <small>— the language of simple, numerical mutation</small>

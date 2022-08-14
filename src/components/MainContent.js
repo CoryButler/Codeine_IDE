@@ -6,7 +6,7 @@ export default function MainContent() {
     return (
         <div className="main-content">
             <Ide />
-            <Card title="Documentation" body={<Documentation />} style={{margin: "32px auto", width: "fit-content"}} />
+            <Card title="Documentation" body={<Documentation />} style={{margin: "32px auto"}} />
         </div>
     );
 }
