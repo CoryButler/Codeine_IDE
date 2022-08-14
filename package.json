@@ -1,7 +1,7 @@
 {
-  "name": "codeine",
+  "name": "codeine_ide",
   "version": "2.0.0",
-  "description": "useless, purposefully archaic, interpreted language",
+  "description": "IDE for Codeine, my own purposefully archaic, interpreted language",
   "main": "index.js",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.2",
@@ -36,15 +36,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CorySButler/Codeine.git"
+    "url": "git+https://github.com/CoryButler/Codeine_IDE.git"
+
   },
   "keywords": [
-    "codeine"
+    "codeine",
+    "codeine_ide"
   ],
   "author": "Cory Butler",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/CorySButler/Codeine/issues"
+    "url": "https://github.com/CoryButler/Codeine_IDE/issues"
   },
   "homepage": "./",
   "browserslist": {
